@@ -6,7 +6,7 @@ function setup() {
 }
 
 let treeX = 400;
-let treeY = 200;
+let treeY = 540;
 let state = "start";
 
 //game logic
@@ -16,24 +16,59 @@ let acceleration = 1;
 //start screen game
 function startScreen() {
   background(95, 15, 22);
+  christmasOrnaments ();
   noStroke();
   textSize(50);
-  text("Start", 210, 210);
+  push();
+  fill(30, 121, 44);
+  rect(135, 155, 315, 130, 20);
+  pop();
+  text("Click to start", 150, 235);
 }
 
+// colors, red - 195, 15, 22, gold - 255, 205, 60, grey - 192, 192, 192, 
 function christmasOrnaments() {
   stroke(0);
   strokeWeight(2);
+  fill(255, 205, 60);
+  line(30, 0, 30, 75);
+  ellipse(30, 75, 20);
+  fill(195, 15, 22);
   line(100, 0, 100, 115);
-  line(180, 0, 180, 70);
-  line();
+  ellipse(100, 115, 30);
+  fill(192, 192, 192);
+  line(175, 0, 175, 70);
+  ellipse(175, 70, 20);
+  fill(255, 205, 60);
+  line(235, 0, 235, 90);
+  ellipse(235, 90, 30);
+  fill(195, 15, 22);
+  line(305, 0, 305, 120);
+  ellipse(305, 120, 25);
+  fill(192, 192, 192);
+  line(370, 0, 370, 80);
+  ellipse(370, 80, 32);
+  fill(255, 205, 60);
+  line(450, 0, 450, 115);
+  ellipse(450, 115, 27);
+  fill(195, 15, 22);
+  line(535, 0, 535, 60);
+  ellipse(535, 60, 20);
 }
 
 //game screen
 function gameScreen() {
   background(95, 15, 22);
   noStroke();
-  text("Game", 210, 210);
+  textSize(35);
+  push();
+  fill(30, 121, 44);
+  rect(210, 155, 130, 70, 20);
+  pop();
+  push();
+  fill(95, 15, 22);
+  text("Game", 227, 200);
+  pop();
   tree(treeX,treeY);
 }
 
@@ -78,6 +113,17 @@ function tree(x, y) {
   pop();
 }
 
+// gravity logic
+treeY = treeY + velocityY;
+velocityY = velocityY + acceleration;
+
+//space key, it will control the acceleration
+if (keyIsDown(32) === true) {
+  acceleration = -1;
+} else {
+  acceleration = 0.5;
+}
+
 function draw() {
   //starting screen
   if (state === "start") {
@@ -96,18 +142,3 @@ function draw() {
   }
 }
 
-// gravity logic
-treeY = treeY + velocityY;
-velocityY = velocityY + acceleration;
-
-//space key, it will control the acceleration
-if (keyIsDown(32) === true) {
-  acceleration = -1;
-} else {
-  acceleration = 0.5;
-}
-
-function draw() {
-  gameScreen();
-  christmasOrnaments();
-}
