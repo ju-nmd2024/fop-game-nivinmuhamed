@@ -7,6 +7,8 @@ function setup() {
 
 let treeX = 400;
 let treeY = 540;
+let x = 100;
+let y = 100; 
 let state = "start";
 
 //game logic
@@ -32,47 +34,48 @@ function christmasOrnaments() {
   strokeWeight(2);
   //gold
   fill(255, 205, 60);
-  line(30, 0, 30, 75);
-  ellipse(30, 75, 20);
+  line(x - 70, 0, x - 70, y - 25);
+  ellipse(x - 70, y - 25, 20);
   //red
   fill(195, 15, 22);
-  line(100, 0, 100, 115);
-  ellipse(100, 115, 30);
+  line(x, 0, x, y + 15);
+  ellipse(x, y + 15, 30);
   fill(192, 192, 192);
-  line(175, 0, 175, 70);
-  ellipse(175, 70, 20);
+  line(x + 75, 0, x + 75, y - 30);
+  ellipse(x + 75, y - 30, 20);
   //gold
   fill(255, 205, 60);
-  line(235, 0, 235, 90);
-  ellipse(235, 90, 30);
+  line(x + 135, 0, x + 135, y - 10);
+  ellipse(x + 135, y - 10, 30);
   fill(195, 15, 22);
-  line(305, 0, 305, 120);
-  ellipse(305, 120, 25);
+  line(x + 205, 0, x + 205, y + 20);
+  ellipse(x + 205, y + 20, 25);
   //grey
   fill(192, 192, 192);
-  line(610, 0, 610, 90);
-  ellipse(610, 90, 25);
-  line(370, 0, 370, 80);
+  line(x + 510, 0, x + 510, y - 10);
+  ellipse(x + 510, y - 10, 25);
+  line(x + 270, 0, x + 270, y - 20);
   ellipse(370, 80, 32);
   //gold
   fill(255, 205, 60);
-  line(450, 0, 450, 115);
-  ellipse(450, 115, 27);
-  line(690, 0, 690, 120);
-  ellipse(690, 120, 30);
+  line(x + 350, 0, x + 350, y + 15);
+  ellipse(x + 350, y + 15, 27);
+  line(x + 590, 0, x + 590, y + 20);
+  ellipse(x + 590, y + 20, 30);
   //red
   fill(195, 15, 22);
-  line(535, 0, 535, 60);
-  ellipse(535, 60, 20);
-  line(770, 0, 770, 110);
-  ellipse(770, 110, 35);
+  line(x + 435, 0, x + 435, y - 40);
+  ellipse(x + 435, y - 40, 20);
+  line(x + 670, 0, x + 670, y + 10);
+  ellipse(x + 670, y + 1, 35);
+  //pot and floor
   push();
   fill(84, 54, 32);
-  rect(0, 540, 800);
-  //brown color taken from chatgpt 
+  rect(0, y + 450, x + 700);
+  //brown color taken from chatgpt
   fill(101, 67, 33);
-  rect(252, 518, 40, 45);
-  rect(247, 515, 50, 12);
+  rect(x + 152, y + 418, x - 60, y - 55);
+  rect(x + 147, y + 415, x - 50, y - 88);
   pop();
 }
 
@@ -175,7 +178,8 @@ function draw() {
   if (treeY >= 700 && velocityY >= 5) {
     state = "lost";
   }
-  //space key, it will control the acceleration
+  //the key that will control the acceleration
+  //got help from a second year NMD student, Markus Ekerheim
   if (keyIsDown(UP_ARROW) === true) {
     velocityY = velocityY - acceleration * 2;
   }
