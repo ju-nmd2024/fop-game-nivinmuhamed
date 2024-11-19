@@ -21,9 +21,9 @@ function startScreen() {
   textSize(50);
   push();
   fill(30, 121, 44);
-  rect(240, 155, 315, 130, 20);
+  rect(240, 220, 315, 130, 20);
   pop();
-  text("Click to start", 260, 235);
+  text("Click to start", 260, 300);
 }
 
 // colors, red - 195, 15, 22, gold - 255, 205, 60, grey - 192, 192, 192,
@@ -66,12 +66,14 @@ function christmasOrnaments() {
   ellipse(535, 60, 20);
   line(770, 0, 770, 110);
   ellipse(770, 110, 35);
-}
-
-//christmastree pot and fireplace
-function potAndFireplace() {
+  push();
   fill(84, 54, 32);
-  rect(0, 600, 800, 600);
+  rect(0, 540, 800);
+  //brown color taken from chatgpt 
+  fill(101, 67, 33);
+  rect(252, 518, 40, 45);
+  rect(247, 515, 50, 12);
+  pop();
 }
 
 //game screen
@@ -81,7 +83,7 @@ function gameScreen() {
   christmasOrnaments();
   treeY = treeY + velocityY;
   velocityY = velocityY + acceleration;
-  if (treeY >= 600) {
+  if (treeY >= 700) {
     if (velocityY <= 5) {
       state = "won";
     } else if (velocityY > 5) {
@@ -93,8 +95,14 @@ function gameScreen() {
 function lostScreen() {
   background(95, 15, 22);
   noStroke();
-  rect();
-  text("You lost", 300, 235);
+  push();
+  fill(30, 121, 44);
+  rect(250, 220, 315, 130, 20);
+  pop();
+  textSize(50);
+  text("You lost", 315, 295);
+  textSize(20);
+  text("YOU RUIEND CHRISTMAS:(", 280, 330);
   christmasOrnaments();
   treeY = -200;
   velocityY = 0;
@@ -103,7 +111,14 @@ function lostScreen() {
 function wonScreen() {
   background(95, 15, 22);
   noStroke();
-  text("You won!", 210, 210);
+  push();
+  fill(30, 121, 44);
+  rect(250, 220, 315, 130, 20);
+  pop();
+  textSize(50);
+  text("You won!", 305, 295);
+  textSize(20);
+  text("YAY! You saved christmas!", 290, 330);
   christmasOrnaments();
   treeY = -200;
   velocityY = 0;
@@ -154,10 +169,10 @@ function draw() {
     wonScreen();
   }
 
-  if (treeY >= 600 && velocityY <= 5) {
+  if (treeY >= 700 && velocityY <= 5) {
     state = "won";
   }
-  if (treeY >= 600 && velocityY >= 5) {
+  if (treeY >= 700 && velocityY >= 5) {
     state = "lost";
   }
   //space key, it will control the acceleration
