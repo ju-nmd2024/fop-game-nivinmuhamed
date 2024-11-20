@@ -5,11 +5,11 @@ function setup() {
   createCanvas(800, 600);
 }
 
-let treeX = 400;
-let treeY = 540;
+let treeY = 10;
 let x = 100;
-let y = 100; 
+let y = 100;
 let state = "start";
+let treeX = Math.floor(Math.random() * (700 - 100 + 1)) + 100;
 
 //game logic
 let velocityY = 1;
@@ -23,9 +23,9 @@ function startScreen() {
   textSize(50);
   push();
   fill(30, 121, 44);
-  rect(240, 220, 315, 130, 20);
+  rect(x + 140, y + 100, x + 215, y + 30, 20);
   pop();
-  text("Click to start", 260, 300);
+  text("Click to start", x + 160, y + 185);
 }
 
 // colors, red - 195, 15, 22, gold - 255, 205, 60, grey - 192, 192, 192,
@@ -68,16 +68,52 @@ function christmasOrnaments() {
   ellipse(x + 435, y - 40, 20);
   line(x + 670, 0, x + 670, y + 10);
   ellipse(x + 670, y + 1, 35);
+
   //pot and floor
   push();
   fill(84, 54, 32);
   rect(0, y + 450, x + 700);
   //brown color taken from chatgpt
   fill(101, 67, 33);
-  rect(x + 152, y + 418, x - 60, y - 55);
-  rect(x + 147, y + 415, x - 50, y - 88);
+  rect(x + 65, y + 418, x - 60, y - 55);
+  rect(x + 60, y + 415, x - 50, y - 88);
   pop();
+
+  //fireplace
+  fill(139, 69, 19);
+  rect(x + 300, y + 265, x + 100);
+  push();
+  //the side of fireplace 
+  fill(101, 67, 33);
+  rect(x + 290, y + 265, x - 70, y + 100);
+  rect(x + 485, y + 265, x - 70, y + 100);
+  pop();
+  //top and bottom light ones of fireplace 
+  fill(140, 102, 58);
+  rect(x + 270, y + 265, x + 165, y - 60);
+  rect(x + 270, y + 445, x + 165, y - 60);
+  push();
+  //middle top of fireplace 
+  fill(101, 67, 33);
+  rect(x + 270, y + 265, x + 165, y - 80);
+  //bottom brown 
+  rect(x + 260, y + 463, x + 185, y - 78);
+  pop();
+  //top beige
+  rect(x + 260, y + 245, x + 185, y - 70);
+  //inside of fireplace 
+  push();
+  noStroke();
+  fill(53, 30, 20);
+  rect(x + 350, y + 364, x + 4, y - 20); 
+  ellipse(x + 402, y + 365, x + 3.5);
+  pop();
+  
+  //fill(101, 67, 33);
+  //fill(175, 128, 79);
+  //ljus brun/beige 140, 102, 58
 }
+
 
 //game screen
 function gameScreen() {
@@ -100,12 +136,12 @@ function lostScreen() {
   noStroke();
   push();
   fill(30, 121, 44);
-  rect(250, 220, 315, 130, 20);
+  rect(x + 140, y + 100, x + 215, y + 30, 20);
   pop();
   textSize(50);
-  text("You lost", 315, 295);
+  text("You lost", x + 200, y + 170);
   textSize(20);
-  text("YOU RUIEND CHRISTMAS:(", 280, 330);
+  text("YOU RUINED CHRISTMAS:(", x + 170, y + 205);
   christmasOrnaments();
   treeY = -200;
   velocityY = 0;
@@ -116,12 +152,12 @@ function wonScreen() {
   noStroke();
   push();
   fill(30, 121, 44);
-  rect(250, 220, 315, 130, 20);
+  rect(x + 140, y + 100, x + 215, y + 30, 20);
   pop();
   textSize(50);
-  text("You won!", 305, 295);
+  text("You won!", x + 195, y + 170);
   textSize(20);
-  text("YAY! You saved christmas!", 290, 330);
+  text("YAY! You saved christmas!", x + 180, y + 205);
   christmasOrnaments();
   treeY = -200;
   velocityY = 0;
@@ -172,10 +208,16 @@ function draw() {
     wonScreen();
   }
 
-  if (treeY >= 700 && velocityY <= 5) {
-    state = "won";
+  if (treeY >= 700) {
+    if (velocityY <= 5 && treeX >= 100 && treeX <= 400) {
+      state = "won";
+    } else if (velocityY > 5) {
+      state = "lost";
+    } else {
+      state = "lost";
+    }
   }
-  if (treeY >= 700 && velocityY >= 5) {
+  if (treeY >= 700 && velocityY >= 5 && treeX < 245 && treeX > 300) {
     state = "lost";
   }
   //the key that will control the acceleration
@@ -183,10 +225,18 @@ function draw() {
   if (keyIsDown(UP_ARROW) === true) {
     velocityY = velocityY - acceleration * 2;
   }
+  if (keyIsDown(LEFT_ARROW) === true) {
+    treeX = treeX - 5;
+  }
+  if (keyIsDown(RIGHT_ARROW) === true) {
+    treeX = treeX + 5;
+  }
 }
 
 function mouseClicked() {
   if (state === "start") {
+    treeX = Math.floor(Math.random() * (700 - 100 + 1)) + 100;
+
     state = "game";
   } else if (state === "game") {
     state = "lost";
