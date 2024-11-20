@@ -12,7 +12,7 @@ let state = "start";
 //help from your videos and a second year NMD student, Markus 
 let treeX = Math.floor(Math.random() * (700 - 0 + 1)) + 100;
 
-//game logic
+//game logic,, help from fellow nmd24 student, Hedda Pettersson
 let velocityY = 0.5;
 let acceleration = 0.4;
 
