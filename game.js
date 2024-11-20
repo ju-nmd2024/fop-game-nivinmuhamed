@@ -9,11 +9,12 @@ let treeY = 10;
 let x = 100;
 let y = 100;
 let state = "start";
-let treeX = Math.floor(Math.random() * (700 - 100 + 1)) + 100;
+//help from your videos and a second year NMD student, Markus 
+let treeX = Math.floor(Math.random() * (700 - 0 + 1)) + 100;
 
 //game logic
-let velocityY = 1;
-let acceleration = 0.5;
+let velocityY = 0.5;
+let acceleration = 0.4;
 
 //start screen game
 function startScreen() {
@@ -78,7 +79,7 @@ function christmasOrnaments() {
   rect(x + 65, y + 418, x - 60, y - 55);
   rect(x + 60, y + 415, x - 50, y - 88);
   pop();
-
+  
   //fireplace
   fill(139, 69, 19);
   rect(x + 300, y + 265, x + 100);
@@ -235,7 +236,7 @@ function draw() {
 
 function mouseClicked() {
   if (state === "start") {
-    treeX = Math.floor(Math.random() * (700 - 100 + 1)) + 100;
+    treeX = Math.floor(Math.random() * (700 - 0 + 1)) + 100;
 
     state = "game";
   } else if (state === "game") {
